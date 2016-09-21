@@ -1,0 +1,37 @@
+{
+  "name": "firenpm.template",
+  "version": "1.0.0-beta.1",
+  "description": "",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelgalazka/firenpm.git"
+  },
+  "author": "Pawel Galazka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pawelgalazka/firenpm/issues"
+  },
+  "homepage": "https://github.com/pawelgalazka/firenpm#readme",
+  "devDependencies": {
+    "firenpm": "1.0.0-beta.1",
+    "runjs": "2.4.2"
+  },
+  "babel": {
+    "presets": [
+      "firenpm/babel-preset-es2015",
+      "firenpm/babel-preset-react",
+      "firenpm/babel-preset-stage-2"
+    ]
+  },
+  "runjs": {
+    "babel-register": "/node_modules/firenpm/babel-register"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/firenpm/eslint-config-standard.js",
+      "./node_modules/firenpm/eslint-config-standard-react.js"
+    ],
+    "parser": "firenpm/babel-eslint"
+  }
+}
