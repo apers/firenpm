@@ -15,8 +15,9 @@ var cwd = './' + packageName
 try {
   run('git clone https://github.com/pawelgalazka/firenpm.git ' + packageName)
   run('rm -rf .git', {cwd: cwd})
+  run('rm -rf .packages', {cwd: cwd})
   run('npm init', {cwd: cwd})
-  run('npm install --save-dev firenpm', {cwd: cwd})
+  run('npm install', {cwd: cwd})
 } catch (e) {
   console.log(chalk.red.bold('Bummer! Looks like something went wrong...'))
   throw e.stack
