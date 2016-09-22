@@ -1,0 +1,23 @@
+{
+  "name": "firenpm.cli",
+  "version": "1.0.0-beta.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelgalazka/firenpm.git"
+  },
+  "author": "Pawel Galazka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pawelgalazka/firenpm/issues"
+  },
+  "homepage": "https://github.com/pawelgalazka/firenpm#readme",
+  "bin": {
+    "firenpm": "./bin/firenpm.js"
+  },
+  "dependencies": {
+    "chalk": "1.1.3",
+    "node-emoji": "1.4.1",
+    "runjs": "2.4.3"
+  }
+}
