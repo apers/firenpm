@@ -1,18 +1,6 @@
 {
-  "name": "firenpm.template",
-  "version": "1.0.0-beta.1",
-  "description": "",
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pawelgalazka/firenpm.git"
-  },
-  "author": "Pawel Galazka",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pawelgalazka/firenpm/issues"
-  },
-  "homepage": "https://github.com/pawelgalazka/firenpm#readme",
   "devDependencies": {
     "firenpm": "1.0.0-beta.1"
   },
