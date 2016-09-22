@@ -34,6 +34,7 @@
     "eslint-plugin-react": "6.2.2",
     "eslint-plugin-standard": "2.0.0",
     "mocha": "2.3.4",
-    "mochaccino": "1.2.0"
+    "mochaccino": "1.2.0",
+    "runjs": "2.4.3"
   }
 }

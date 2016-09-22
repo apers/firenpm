@@ -1,4 +1,4 @@
-var run = require('runjs').run
+var run = require('./firenpm/runjs').run
 
 var task = {
   'link': function() {

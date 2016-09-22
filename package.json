@@ -14,8 +14,7 @@
   },
   "homepage": "https://github.com/pawelgalazka/firenpm#readme",
   "devDependencies": {
-    "firenpm": "1.0.0-beta.1",
-    "runjs": "2.4.2"
+    "firenpm": "1.0.0-beta.1"
   },
   "babel": {
     "presets": [

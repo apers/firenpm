@@ -1,4 +1,4 @@
-import { run } from 'runjs'
+import { run } from 'firenpm/runjs'
 
 const task = {
   'clean': () => {
