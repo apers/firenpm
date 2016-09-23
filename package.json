@@ -1,5 +1,9 @@
 {
+  "name": "",
+  "version": "",
+  "description": "",
   "main": "lib/index.js",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "firenpm": "1.0.0-beta.1"
