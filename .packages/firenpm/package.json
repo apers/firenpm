@@ -36,5 +36,14 @@
     "mocha": "2.3.4",
     "mochaccino": "1.2.0",
     "runjs": "2.4.3"
-  }
+  },
+  "bundledDependencies": [
+    "eslint",
+    "eslint-config-standard",
+    "eslint-config-standard-jsx",
+    "eslint-config-standard-react",
+    "eslint-plugin-promise",
+    "eslint-plugin-react",
+    "eslint-plugin-standard"
+  ]
 }
