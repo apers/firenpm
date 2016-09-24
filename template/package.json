@@ -1,8 +1,12 @@
 {
-  "private": true,
-  "scripts": {
-    "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && ln -s ../packages/firenpm node_modules/firenpm",
-    "clean": "rm -rf node_modules && rm -rf template/node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules"
+  "name": "",
+  "version": "",
+  "description": "",
+  "main": "lib/index.js",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "firenpm": "1.0.0-beta.1"
   },
   "babel": {
     "presets": [
