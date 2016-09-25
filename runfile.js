@@ -41,13 +41,15 @@ const task = {
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
   },
-  'test': () => {
+  'test': (opt) => {
     task['sandbox:clean']()
     run('mkdir sandbox')
     isolated(() => {
       run(`(cd sandbox && FIRENPM_NOINIT=true FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
-      run('(cd sandbox/test-project && run test)')
-      run('(cd sandbox/test-project && run build)')
+      if (opt !== 'cli') {
+        run('(cd sandbox/test-project && run test)')
+        run('(cd sandbox/test-project && run build)')
+      }
     }, () => {
       task['sandbox:clean']()
     })

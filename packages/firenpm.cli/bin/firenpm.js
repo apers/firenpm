@@ -18,7 +18,9 @@ try {
 const CWD = path.resolve('./' + packageName)
 
 try {
+  console.log(chalk.yellow.bold(`Creating directory structure for '${packageName}'...`))
   run(`rsync -av --exclude=node_modules ${TEMPLATE_PATH}/ ${CWD}/`)
+  console.log(chalk.yellow.bold('Installing packages...'))
   if (FIRENPM_PATH) {
     run(`npm install --save-dev --save-exact ${FIRENPM_PATH}`, {cwd: CWD})
   } else {
@@ -34,3 +36,11 @@ try {
 }
 
 console.log(chalk.green.bold('All set! You can start rolling! '),  emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
+console.log(`Created '${packageName}' project at ${CWD}
+Now just:
+
+  cd ${packageName}
+  run test
+  
+Visit '${packageName}/runfile.js' to see more commands.
+`)
