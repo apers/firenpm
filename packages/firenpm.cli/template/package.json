@@ -1,6 +1,6 @@
 {
   "name": "",
-  "version": "",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "author": "",
@@ -8,6 +8,8 @@
   "scripts": {
     "test": "run test",
     "prepublish": "run test"
+  },
+  "dependencies": {
   },
   "devDependencies": {
   },

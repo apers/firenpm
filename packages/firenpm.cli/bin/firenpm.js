@@ -20,15 +20,15 @@ const CWD = path.resolve('./' + packageName)
 try {
   console.log(chalk.yellow.bold(`Creating directory structure for '${packageName}'...`))
   run(`rsync -av --exclude=node_modules ${TEMPLATE_PATH}/ ${CWD}/`)
+  if (!FIRENPM_NOINIT) {
+    console.log(chalk.yellow.bold('Defining package.json'))
+    run('npm init', {cwd: CWD})
+  }
   console.log(chalk.yellow.bold('Installing packages...'))
   if (FIRENPM_PATH) {
     run(`npm install --save-dev --save-exact ${FIRENPM_PATH}`, {cwd: CWD})
   } else {
     run('npm install --save-dev --save-exact firenpm', {cwd: CWD})
-  }
-
-  if (!FIRENPM_NOINIT) {
-    run('npm init', {cwd: CWD})
   }
 } catch (e) {
   console.log(chalk.red.bold('Bummer! Looks like something went wrong...'))
