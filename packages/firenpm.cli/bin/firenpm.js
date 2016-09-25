@@ -35,6 +35,7 @@ try {
   throw e.stack
 }
 
+run('clear')
 console.log(chalk.green.bold('All set! You can start rolling! '),  emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
 console.log(`Created '${packageName}' project at ${CWD}
 Now just:
