@@ -9,6 +9,10 @@ const task = {
     run('mkdir -p .sandbox')
     run(`(cd .sandbox && FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} ${projectName})`)
   },
+  'clean:sandbox': () => {
+    run('rm -rf .sandbox')
+    run('mkdir .sandbox')
+  },
   'test': () => {
     run('rm -rf .sandbox')
     run('mkdir .sandbox')
