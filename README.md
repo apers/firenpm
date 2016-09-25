@@ -15,4 +15,4 @@ firenpm your-project
 ```
 
 ...and done! Now just `cd your-project` and type `run test`.
-Linting, ES6 and tests works out of the box!
+Linting, ES6 and tests work out of the box!
