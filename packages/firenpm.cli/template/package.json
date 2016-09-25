@@ -5,6 +5,10 @@
   "main": "lib/index.js",
   "author": "",
   "license": "MIT",
+  "scripts": {
+    "test": "run test",
+    "prepublish": "run test"
+  },
   "devDependencies": {
   },
   "babel": {

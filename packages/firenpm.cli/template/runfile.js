@@ -19,14 +19,10 @@ const task = {
   'lint:fix': (path = '.') => {
     run(`eslint ${path} --fix`)
   },
-  'test': (watch = false) => {
-    if (watch) {
-      watch = watch ? '--watch' : ''
-    } else {
-      watch = ''
-      task['lint']()
-    }
-    run(`mocha src/*.test.js --require firenpm/mochaccino/dom-setup --compilers js:firenpm/babel-register${watch}`)
+  'test': () => {
+    task['lint']()
+    task['build']()
+    run('mocha src/*.test.js --require firenpm/mochaccino/dom-setup --compilers js:firenpm/babel-register')
   }
 }
 
