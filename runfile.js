@@ -5,17 +5,19 @@ const FIRENPM_PATH = path.resolve('./packages/firenpm')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 
 const task = {
-  'firenpm': (projectName) => {
-    run('mkdir -p .sandbox')
-    run(`(cd .sandbox && FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} ${projectName})`)
-  },
-  'clean:sandbox': () => {
+  'sandbox:clean': () => {
     run('rm -rf .sandbox')
     run('mkdir .sandbox')
+  },
+  'sandbox:start': () => {
+    task['sandbox:clean']()
+    run(`(cd .sandbox && FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
+  },
+  'sandbox:run': (...cmd) => {
+    run(`(cd .sandbox/test-project && run ${cmd.join(' ')})`)
   },
   'test': () => {
-    run('rm -rf .sandbox')
-    run('mkdir .sandbox')
+    task['sandbox:clean']()
     run('mv ./node_modules ./.node_modules') // sandbox should not read modules from directory above
     try {
       run(`(cd .sandbox && FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)

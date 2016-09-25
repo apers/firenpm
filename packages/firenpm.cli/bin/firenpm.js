@@ -18,7 +18,9 @@ const CWD = path.resolve('./' + packageName)
 
 try {
   run(`rsync -av --exclude=node_modules ${TEMPLATE_PATH}/ ${CWD}/`)
-  run('npm init', {cwd: CWD})
+  if (!process.env.CI) {
+    run('npm init', {cwd: CWD})
+  }
   if (FIRENPM_PATH) {
     run(`npm install --save-dev --save-exact ${FIRENPM_PATH}`, {cwd: CWD})
   } else {
