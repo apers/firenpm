@@ -37,6 +37,10 @@ const task = {
       run(`(cd sandbox/test-project && run ${cmd.join(' ')})`)
     })
   },
+  'publish': () => {
+    run('(cd packages/firenpm && npm publish)')
+    run('(cd packages/firenpm.cli && npm publish)')
+  },
   'test': () => {
     task['sandbox:clean']()
     run('mkdir sandbox')
