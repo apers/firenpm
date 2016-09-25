@@ -1,10 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "link": "ln -s ../packages/firenpm node_modules/firenpm && ln -s ../../packages/firenpm template/node_modules/firenpm && ln -s ../../../packages/firenpm/bin/eslint.js template/node_modules/.bin/eslint && ln -s ../../../packages/firenpm/bin/babel.js template/node_modules/.bin/babel && ln -s ../../../packages/firenpm/bin/mocha.js template/node_modules/.bin/mocha",
-    "unlink": "rm -rf node_modules && rm -rf template/node_modules && mkdir node_modules && mkdir -p template/node_modules/.bin",
-    "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && mkdir -p template/node_modules/.bin && npm run link",
-    "clean": "rm -rf node_modules && rm -rf template/node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules"
+    "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && ln -s ../packages/firenpm node_modules/firenpm",
+    "clean": "rm -rf node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules"
   },
   "babel": {
     "presets": [
