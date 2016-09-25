@@ -19,7 +19,7 @@ function isolated(callback) {
 
 const task = {
   'sandbox:clean': () => {
-    run('rm -rf .sandbox')
+    run('rm -rf sandbox')
     run('rm -rf packages/firenpm.cli/template/node_modules')
   },
   'sandbox:play': () => {
@@ -29,20 +29,20 @@ const task = {
     run('ln -s ../../../../firenpm/bin/mocha.js packages/firenpm.cli/template/node_modules/.bin/mocha')
     run('ln -s ../../../../firenpm/bin/babel.js packages/firenpm.cli/template/node_modules/.bin/babel')
     run('ln -s ../../../../firenpm/bin/eslint.js packages/firenpm.cli/template/node_modules/.bin/eslint')
-    run('ln -s packages/firenpm.cli/template .sandbox')
+    run('ln -s packages/firenpm.cli/template sandbox')
   },
   'sandbox:run': (...cmd) => {
     isolated(() => {
-      run(`(cd .sandbox/test-project && run ${cmd.join(' ')})`)
+      run(`(cd sandbox/test-project && run ${cmd.join(' ')})`)
     })
   },
   'test': () => {
     task['sandbox:clean']()
-    run('mkdir .sandbox')
+    run('mkdir sandbox')
     isolated(() => {
-      run(`(cd .sandbox && FIRENPM_NOINIT=true FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
-      run('(cd .sandbox/test-project && run test)')
-      run('(cd .sandbox/test-project && run build)')
+      run(`(cd sandbox && FIRENPM_NOINIT=true FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
+      run('(cd sandbox/test-project && run test)')
+      run('(cd sandbox/test-project && run build)')
     })
   }
 }
