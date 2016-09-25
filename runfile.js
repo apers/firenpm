@@ -42,6 +42,9 @@ const task = {
     run('(cd packages/firenpm.cli && npm unlink)')
   },
   'publish': () => {
+    task['test']()
+    run('cp ./README.md packages/firenpm/README.md')
+    run('cp ./README.md packages/firenpm.cli/README.md')
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
   },
