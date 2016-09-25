@@ -35,6 +35,12 @@ const task = {
   'sandbox:run': (...cmd) => {
     run(`(cd sandbox && run ${cmd.join(' ')})`)
   },
+  'sandbox:linkcli': () => {
+    run('(cd packages/firenpm.cli && npm link)')
+  },
+  'sandbox:unlinkcli': () => {
+    run('(cd packages/firenpm.cli && npm unlink)')
+  },
   'publish': () => {
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
