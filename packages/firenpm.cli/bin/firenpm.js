@@ -7,6 +7,7 @@ const path = require('path')
 
 const FIRENPM_PATH = process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH)
 const TEMPLATE_PATH = path.resolve(__dirname, '../template')
+const FIRENPM_NOINIT = process.env.FIRENPM_NOINIT
 
 try {
   var packageName = process.argv[2]
@@ -18,13 +19,14 @@ const CWD = path.resolve('./' + packageName)
 
 try {
   run(`rsync -av --exclude=node_modules ${TEMPLATE_PATH}/ ${CWD}/`)
-  if (!process.env.CI) {
-    run('npm init', {cwd: CWD})
-  }
   if (FIRENPM_PATH) {
     run(`npm install --save-dev --save-exact ${FIRENPM_PATH}`, {cwd: CWD})
   } else {
     run('npm install --save-dev --save-exact firenpm', {cwd: CWD})
+  }
+
+  if (!FIRENPM_NOINIT) {
+    run('npm init', {cwd: CWD})
   }
 } catch (e) {
   console.log(chalk.red.bold('Bummer! Looks like something went wrong...'))

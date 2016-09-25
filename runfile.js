@@ -5,8 +5,8 @@ const FIRENPM_PATH = path.resolve('./packages/firenpm')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 
 function isolated(callback) {
-  run('mv ./node_modules ./.node_modules') // sandbox should not read modules from directory above
-  run('mv ./package.json ./.package.json')
+  run('mv ./node_modules ./.node_modules') // sandbox should not read modules from the directory above
+  run('mv ./package.json ./.package.json') // eslint and babel should not read config from the directory above
   try {
     callback()
   } catch (e) {
@@ -34,7 +34,7 @@ const task = {
   'test': () => {
     task['sandbox:clean']()
     isolated(() => {
-      run(`(cd .sandbox && FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
+      run(`(cd .sandbox && FIRENPM_NOINIT=true FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
       run('(cd .sandbox/test-project && run test)')
       run('(cd .sandbox/test-project && run build)')
     })
