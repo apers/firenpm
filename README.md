@@ -46,9 +46,9 @@ firenpm ecosystem consist of 2 npm modules: `firenpm.cli` and `firenpm`.
 
 Tools used by `firenpm`:
 
-- [Babel](www.babeljs.io) (with presets: es2015, react and stage-2)
-- [eslint](www.eslint.org) (with standard and standard-react config)
-- [mocha](www.mochajs.org)
+- [Babel](http://www.babeljs.io) (with presets: es2015, react and stage-2)
+- [eslint](http://www.eslint.org) (with standard and standard-react config)
+- [mocha](http://www.mochajs.org)
 - [mochaccino](https://github.com/pawelgalazka/mochaccino) (test asserts, mocking)
 - [runjs](https://github.com/pawelgalazka/runjs) (minimalistic building tool)
 
