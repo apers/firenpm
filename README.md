@@ -36,3 +36,19 @@ Make a note that your dependencies in `package.json` will look like this:
 
 there is no test tools, eslint or babel plugins there! That means you don't need
 to care about maintaining those dependencies, that's a job of firenpm.
+
+## What's inside ?
+
+firenpm ecosystem consist of 2 npm modules: `firenpm.cli` and `firenpm`.
+
+- `firenpm.cli` - command line tool which generates project structure for you, from firenpm template
+- `firenpm` - provides necessary devDependencies
+
+Tools used by `firenpm`:
+
+- [Babel](www.babeljs.io) (with presets: es2015, react and stage-2)
+- [eslint](www.eslint.org) (with standard and standard-react config)
+- [mocha](www.mochajs.org)
+- [mochaccino](https://github.com/pawelgalazka/mochaccino) (test asserts, mocking)
+- [runjs](https://github.com/pawelgalazka/runjs) (minimalistic building tool)
+
