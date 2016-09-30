@@ -1,0 +1,32 @@
+{
+  "name": "firenpm.web",
+  "version": "1.0.1",
+  "description": "Setup Babel, linting and tests for your NPM module without configuration",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelgalazka/firenpm.git"
+  },
+  "author": "Pawel Galazka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pawelgalazka/firenpm/issues"
+  },
+  "homepage": "https://github.com/pawelgalazka/firenpm#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "babel-loader": "6.2.5",
+    "css-loader": "0.25.0",
+    "file-loader": "0.9.0",
+    "json-loader": "0.5.4",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "1.13.2",
+    "webpack-dev-server": "1.16.1"
+  },
+  "peerDependencies": {
+    "firenpm": "*"
+  }
+}

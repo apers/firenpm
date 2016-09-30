@@ -27,6 +27,7 @@ const task = {
     task['sandbox:clean']()
     run('mkdir -p packages/firenpm.cli/template/node_modules/.bin')
     run('ln -s ../../../firenpm packages/firenpm.cli/template/node_modules/firenpm')
+    run('ln -s ../../../firenpm.web packages/firenpm.cli/template/node_modules/firenpm.web')
     run('ln -s ../../../../firenpm/bin/mocha.js packages/firenpm.cli/template/node_modules/.bin/mocha')
     run('ln -s ../../../../firenpm/bin/babel.js packages/firenpm.cli/template/node_modules/.bin/babel')
     run('ln -s ../../../../firenpm/bin/eslint.js packages/firenpm.cli/template/node_modules/.bin/eslint')
@@ -45,8 +46,10 @@ const task = {
     task['test']()
     run('cp ./README.md packages/firenpm/README.md')
     run('cp ./README.md packages/firenpm.cli/README.md')
+    run('cp ./README.md packages/firenpm.web/README.md')
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
+    run('(cd packages/firenpm.web && npm publish)')
   },
   'test': (opt) => {
     task['sandbox:clean']()
