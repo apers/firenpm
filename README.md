@@ -1,4 +1,4 @@
-# firenpm [![Build Status](https://travis-ci.org/pawelgalazka/firenpm.svg?branch=master)](https://travis-ci.org/pawelgalazka/firenpm) [![npm version](https://badge.fury.io/js/firenpm.svg)](https://badge.fury.io/js/firenpm)
+# firenpm ![node version](https://img.shields.io/node/v/firenpm.svg) [![Build Status](https://travis-ci.org/pawelgalazka/firenpm.svg?branch=master)](https://travis-ci.org/pawelgalazka/firenpm) [![npm version](https://badge.fury.io/js/firenpm.svg)](https://badge.fury.io/js/firenpm)
 
 
 ## Quick start
