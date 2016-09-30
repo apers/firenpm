@@ -4,7 +4,7 @@ function firenpmWeb (name) {
   return path.resolve('./node_modules/firenpm.web/' + name + '.js')
 }
 module.exports = {
-  entry: './src/index.js',
+  entry: './demo/index.js',
   output: {
     filename: 'bundle.js',
     path: './demo',
