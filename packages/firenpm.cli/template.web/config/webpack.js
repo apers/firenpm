@@ -1,9 +1,8 @@
 module.exports = {
-  entry: '',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: './build',
-    publicPath: 'http://localhost:8080/'
+    path: './build'
   },
   devtool: 'inline-source-map',
   devServer: {
