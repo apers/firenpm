@@ -22,16 +22,17 @@ const task = {
   'sandbox:clean': () => {
     run('rm -rf sandbox')
     run('rm -rf packages/firenpm.cli/template/node_modules')
+    run('rm -rf packages/firenpm.cli/template.web/node_modules')
   },
-  'sandbox:play': () => {
+  'sandbox:play': (template = 'template') => {
     task['sandbox:clean']()
-    run('mkdir -p packages/firenpm.cli/template/node_modules/.bin')
-    run('ln -s ../../../firenpm packages/firenpm.cli/template/node_modules/firenpm')
-    run('ln -s ../../../firenpm.web packages/firenpm.cli/template/node_modules/firenpm.web')
-    run('ln -s ../../../../firenpm/bin/mocha.js packages/firenpm.cli/template/node_modules/.bin/mocha')
-    run('ln -s ../../../../firenpm/bin/babel.js packages/firenpm.cli/template/node_modules/.bin/babel')
-    run('ln -s ../../../../firenpm/bin/eslint.js packages/firenpm.cli/template/node_modules/.bin/eslint')
-    run('ln -s packages/firenpm.cli/template sandbox')
+    run(`mkdir -p packages/firenpm.cli/${template}/node_modules/.bin`)
+    run(`ln -s ../../../firenpm packages/firenpm.cli/${template}/node_modules/firenpm`)
+    run(`ln -s ../../../firenpm.web packages/firenpm.cli/${template}/node_modules/firenpm.web`)
+    run(`ln -s ../../../../firenpm/bin/mocha.js packages/firenpm.cli/${template}/node_modules/.bin/mocha`)
+    run(`ln -s ../../../../firenpm/bin/babel.js packages/firenpm.cli/${template}/node_modules/.bin/babel`)
+    run(`ln -s ../../../../firenpm/bin/eslint.js packages/firenpm.cli/${template}/node_modules/.bin/eslint`)
+    run(`ln -s packages/firenpm.cli/${template} sandbox`)
   },
   'sandbox:run': (...cmd) => {
     run(`(cd sandbox && run ${cmd.join(' ')})`)
