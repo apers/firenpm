@@ -25,7 +25,7 @@ const task = {
     run('mocha src/*.test.js --require firenpm/mochaccino/dom-setup --compilers js:firenpm/babel-register')
   },
   'web': () => {
-    run('webpack-dev-server --config config/webpack.js')
+    run('webpack-dev-server --config config/webpack.js --progress')
   }
 }
 

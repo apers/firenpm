@@ -1,3 +1,8 @@
+const path = require('path')
+
+function firenpmWeb (name) {
+  return path.resolve('./node_modules/firenpm.web/' + name + '.js')
+}
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -12,10 +17,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'firenpm.web/babel-loader' },
-      { test: /\.json$/, loader: 'firenpm.web/json-loader' },
-      { test: /\.css$/, loader: 'firenpm.web/style-loader!firenpm.web/css-loader' },
-      { test: /\.(png|jpg)$/, loader: 'firenpm.web/url-loader?limit=8192' }
+      { test: /\.js$/, loader: firenpmWeb('babel-loader') },
+      { test: /\.json$/, loader: firenpmWeb('json-loader') },
+      { test: /\.css$/, loaders: [firenpmWeb('style-loader'), firenpmWeb('css-loader')] },
+      { test: /\.(png|jpg)$/, loader: firenpmWeb('url-loader') }
     ]
   }
 }
