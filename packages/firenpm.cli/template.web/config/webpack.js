@@ -2,11 +2,12 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: './build'
+    path: './demo',
+    publicPath: 'http://localhost:8080/'
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: 'build',
+    contentBase: 'demo',
     inline: true
   },
   module: {
@@ -16,8 +17,5 @@ module.exports = {
       { test: /\.css$/, loader: 'firenpm.web/style-loader!firenpm.web/css-loader' },
       { test: /\.(png|jpg)$/, loader: 'firenpm.web/url-loader?limit=8192' }
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.json']
   }
 }
