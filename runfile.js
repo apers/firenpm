@@ -32,6 +32,9 @@ const task = {
     run(`ln -s ../../../../firenpm/bin/mocha.js packages/firenpm.cli/${template}/node_modules/.bin/mocha`)
     run(`ln -s ../../../../firenpm/bin/babel.js packages/firenpm.cli/${template}/node_modules/.bin/babel`)
     run(`ln -s ../../../../firenpm/bin/eslint.js packages/firenpm.cli/${template}/node_modules/.bin/eslint`)
+    if (template === 'template.web') {
+      run(`ln -s ../../../../firenpm.web/bin/webpack-dev-server.js packages/firenpm.cli/${template}/node_modules/.bin/webpack-dev-server`)
+    }
     run(`ln -s packages/firenpm.cli/${template} sandbox`)
   },
   'sandbox:run': (...cmd) => {
