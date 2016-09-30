@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: '',
   output: {
     filename: 'bundle.js',
     path: './build',
@@ -12,10 +12,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader' },
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
+      { test: /\.js$/, loader: 'firenpm.web/babel-loader' },
+      { test: /\.json$/, loader: 'firenpm.web/json-loader' },
+      { test: /\.css$/, loader: 'firenpm.web/style-loader!firenpm.web/css-loader' },
+      { test: /\.(png|jpg)$/, loader: 'firenpm.web/url-loader?limit=8192' }
     ]
   },
   resolve: {

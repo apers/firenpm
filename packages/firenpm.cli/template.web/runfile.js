@@ -23,6 +23,9 @@ const task = {
     task['lint']()
     task['build']()
     run('mocha src/*.test.js --require firenpm/mochaccino/dom-setup --compilers js:firenpm/babel-register')
+  },
+  'web': () => {
+    run('./node_modules/firenpm.web/node_modules/.bin/webpack-dev-server --config config/webpack.js')
   }
 }
 
