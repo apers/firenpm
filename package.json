@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && mkdir -p node_modules && ln -s ../packages/firenpm node_modules/firenpm",
-    "clean": "rm -rf node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules"
+    "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && (cd packages/firenpm.web && npm install) && mkdir -p node_modules && ln -s ../packages/firenpm node_modules/firenpm",
+    "clean": "rm -rf node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules && rm -rf packages/firenpm.web/node_modules"
   },
   "babel": {
     "presets": [
