@@ -1,6 +1,6 @@
 {
   "name": "firenpm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Setup ES6, linting and tests for your NPM module without configuration",
   "main": "index.js",
   "repository": {
@@ -13,6 +13,9 @@
     "url": "https://github.com/pawelgalazka/firenpm/issues"
   },
   "homepage": "https://github.com/pawelgalazka/firenpm#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "bin": {
     "eslint": "./bin/eslint.js",
     "mocha": "./bin/mocha.js",
@@ -35,7 +38,7 @@
     "eslint-plugin-standard": "2.0.1",
     "mocha": "3.1.0",
     "mochaccino": "1.2.0",
-    "runjs": "2.4.3"
+    "runjs": "2.5.0"
   },
   "bundledDependencies": [
     "eslint",
