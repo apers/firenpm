@@ -1,7 +1,7 @@
 {
   "name": "firenpm.cli",
   "version": "1.0.1",
-  "description": "Setup ES6, linting and tests for your NPM module without configuration",
+  "description": "Setup Babel, linting and tests for your NPM module without configuration",
   "preferGlobal": true,
   "repository": {
     "type": "git",
