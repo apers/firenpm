@@ -1,10 +1,15 @@
 import { run } from './packages/firenpm/runjs'
 import path from 'path'
+import fs from 'fs'
 import jsonfile from './packages/firenpm.cli/node_modules/jsonfile'
+import pckg from './packages/firenpm.cli/package.json'
 
 const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
-const EXTENSIONS = ['web']
+const PACKAGES = fs.readdirSync(FIRENPM_PATH)
+const EXTENSIONS = PACKAGES.map(pckg => pckg.split('.')[1]).filter(ext => ext && ext !== 'cli')
+const VERSION = pckg.version
+const IS_STABLE = !!VERSION.match(/^\d+\.\d+\.\d+$/)
 
 function isolated (callback, finall) {
   run('mv ./package.json ./.package.json') // eslint and babel should not read config from the directory above
@@ -31,6 +36,14 @@ function updateVersion (file, version) {
 }
 
 const task = {
+  'info': () => {
+    console.log('FIRENPM_PATH', FIRENPM_PATH)
+    console.log('FIRENPM_SCRIPT', FIRENPM_SCRIPT)
+    console.log('PACKAGES', PACKAGES)
+    console.log('EXTENSIONS', EXTENSIONS)
+    console.log('VERSION', VERSION)
+    console.log('IS_STABLE', IS_STABLE)
+  },
   'sandbox:clean': () => {
     run('rm -rf sandbox')
     task['sandbox:unlink']('firenpm')
