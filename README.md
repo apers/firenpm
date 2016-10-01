@@ -46,9 +46,32 @@ firenpm ecosystem consist of 2 npm modules: `firenpm.cli` and `firenpm`.
 
 Tools used by `firenpm`:
 
-- [Babel](http://www.babeljs.io) (with presets: es2015, react and stage-2)
+- [babel](http://www.babeljs.io) (with presets: es2015, react and stage-2)
 - [eslint](http://www.eslint.org) (with standard and standard-react config)
 - [mocha](http://www.mochajs.org)
 - [mochaccino](https://github.com/pawelgalazka/mochaccino) (test asserts, mocking)
 - [runjs](https://github.com/pawelgalazka/runjs) (minimalistic building tool)
 
+## Web extension
+
+For testing packages which should work within the browser like
+React components there is `firenpm.web` extension.
+
+To create project with that extension:
+
+```bash
+firenpm your-project --web
+```
+
+then
+
+```bash
+cd your-project
+run test # will do tests on fake dom (jsdom)
+run web # it will open up the browser, with your code
+```
+
+Web extension provides `webpack` setup which will run your code
+in the browser for visual testing purposes. In your `devDependencies`
+`firenpm.web` packages will be installed. Package stores all
+necessary tools, so you don't have to manage all webpack dependencies.
