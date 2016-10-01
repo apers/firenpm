@@ -4,4 +4,5 @@ sandbox
 packages/firenpm/README.md
 packages/firenpm.cli/README.md
 packages/firenpm.cli/lib
+packages/firenpm.web/README.md
 
