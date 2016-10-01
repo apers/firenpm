@@ -7,13 +7,17 @@ const EXTENSIONS = ['web']
 
 function isolated (callback, finall) {
   run('mv ./package.json ./.package.json') // eslint and babel should not read config from the directory above
+  const clean = () => {
+    run('mv ./.package.json ./package.json')
+    finall && finall()
+  }
+  process.on('SIGINT', clean)
   try {
     callback()
   } catch (e) {
     throw e.stack
   } finally {
-    run('mv ./.package.json ./package.json')
-    finall && finall()
+    clean()
   }
 }
 
