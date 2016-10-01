@@ -1,7 +1,7 @@
 import { run } from 'firenpm/runjs'
 import path from 'path'
 
-const FIRENPM_PATH = path.resolve('./packages/firenpm')
+const FIRENPM_PATH = path.resolve('./packages/')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 
 function isolated(callback, finall) {
@@ -21,31 +21,33 @@ function isolated(callback, finall) {
 const task = {
   'sandbox:clean': () => {
     run('rm -rf sandbox')
-  },
-  'sandbox:play': (template) => {
-    task['sandbox:clean']()
-    run('mkdir -p sandbox/node_modules/.bin')
-    run('cp -R packages/firenpm.cli/template/ sandbox/')
-
-    run('ln -s ../../packages/firenpm sandbox/node_modules/firenpm')
-    run('ln -s ../../../packages/firenpm/bin/mocha.js sandbox/node_modules/.bin/mocha')
-    run('ln -s ../../../packages/firenpm/bin/babel.js sandbox/node_modules/.bin/babel')
-    run('ln -s ../../../packages/firenpm/bin/eslint.js sandbox/node_modules/.bin/eslint')
-
-    if (template === 'web') {
-      run('cp -R packages/firenpm.cli/template.web/ sandbox/')
-      run('ln -s ../../packages/firenpm.web sandbox/node_modules/firenpm.web')
-      run(`ln -s ../../../packages/firenpm.web/bin/webpack-dev-server.js sandbox/node_modules/.bin/webpack-dev-server`)
-    }
+    task['sandbox:unlink']('firenpm')
+    task['sandbox:unlink']('firenpm.web')
   },
   'sandbox:run': (...cmd) => {
     run(`(cd sandbox && run ${cmd.join(' ')})`)
   },
-  'sandbox:linkcli': () => {
-    run('(cd packages/firenpm.cli && npm link)')
+  'sandbox:link': (pck) => {
+    run(`(cd packages/${pck} && npm link)`)
   },
-  'sandbox:unlinkcli': () => {
-    run('(cd packages/firenpm.cli && npm unlink)')
+  'sandbox:unlink': () => {
+    run(`(cd packages/${pck} && npm unlink)`)
+  },
+  'sandbox': (extension) => {
+    task['sandbox:clean']()
+    run('mkdir sandbox')
+    extension = extension ? ` --${extension}` : ''
+    run(`(cd sandbox && NODE_ENV=sandbox FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project${extension})`)
+  },
+  'test': (extension) => {
+    task['sandbox:clean']()
+    run('mkdir sandbox')
+    extension = extension ? ` --${extension}` : ''
+    isolated(() => {
+      run(`(cd sandbox && NODE_ENV=test FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project${extension})`)
+    }, () => {
+      task['sandbox:clean']()
+    })
   },
   'publish': () => {
     task['test']()
@@ -55,18 +57,6 @@ const task = {
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
     run('(cd packages/firenpm.web && npm publish)')
-  },
-  'test': (opt) => {
-    task['sandbox:clean']()
-    run('mkdir sandbox')
-    isolated(() => {
-      run(`(cd sandbox && FIRENPM_NOINIT=true FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project)`)
-      if (opt !== 'cli') {
-        run('(cd sandbox/test-project && run test)')
-      }
-    }, () => {
-      task['sandbox:clean']()
-    })
   }
 }
 
