@@ -23,7 +23,7 @@ const task = {
     task['sandbox:unlink']('firenpm.web')
   },
   'sandbox:run': (...cmd) => {
-    run(`(cd sandbox && run ${cmd.join(' ')})`)
+    run(`(cd sandbox/test-project && run ${cmd.join(' ')})`)
   },
   'sandbox:link': (pck) => {
     run(`(cd packages/${pck} && npm link)`)

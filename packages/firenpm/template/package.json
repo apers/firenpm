@@ -6,8 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "test": "run test",
-    "prepublish": "run test"
+    "test": "run test"
   },
   "dependencies": {
   },
@@ -28,6 +27,6 @@
       "./node_modules/firenpm/eslint-config-standard.js",
       "./node_modules/firenpm/eslint-config-standard-react.js"
     ],
-    "parser": "firenpm/babel-eslint"
+    "parser": "./node_modules/firenpm/babel-eslint"
   }
 }

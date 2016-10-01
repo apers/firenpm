@@ -42,6 +42,10 @@ function linkPackages () {
 }
 
 try {
+  console.log(chalk.yellow.bold(`Creating directory '${PACKAGE_NAME}'...`))
+  run(`mkdir ${PACKAGE_NAME}`)
+  run('touch package.json', {cwd: CWD})
+
   console.log(chalk.yellow.bold('Installing packages...'))
   if (NODE_ENV === 'sandbox') {
     linkPackages()
