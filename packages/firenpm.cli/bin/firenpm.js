@@ -28,9 +28,9 @@ if (!PACKAGE_NAME) {
 }
 
 function installPackages () {
-  run(`npm install --save-dev --save-exact ${FIRENPM_PATH}firenpm`, {cwd: CWD})
+  run(`npm install --save-dev --save-exact firenpm`, {cwd: CWD})
   if (EXTENSION) {
-    run(`npm install --save-dev --save-exact ${FIRENPM_PATH}firenpm.${EXTENSION}`, {cwd: CWD})
+    run(`npm install --save-dev --save-exact firenpm.${EXTENSION}`, {cwd: CWD})
   }
 }
 
@@ -44,10 +44,10 @@ function linkPackages () {
 try {
   console.log(chalk.yellow.bold(`Creating directory '${PACKAGE_NAME}'...`))
   run(`mkdir ${PACKAGE_NAME}`)
-  run('touch package.json', {cwd: CWD})
+  run('echo "{}" > package.json', {cwd: CWD})
 
   console.log(chalk.yellow.bold('Installing packages...'))
-  if (NODE_ENV === 'sandbox') {
+  if (['sandbox', 'test'].indexOf(NODE_ENV) !== -1) {
     linkPackages()
   } else {
     installPackages()
@@ -59,7 +59,7 @@ try {
     run(`rsync -av ${EXTENSION_TEMPLATE_PATH}/ ${CWD}/`)
   }
 
-  if (NODE_ENV !== 'sandbox') {
+  if (['sandbox', 'test'].indexOf(NODE_ENV) === -1) {
     console.log(chalk.yellow.bold('Saving installed firenpm packages to package.json'))
     installPackages()
   }
