@@ -65,6 +65,7 @@ const task = {
     })
   },
   'test': () => {
+    task['lint']();
     [null, ...EXTENSIONS].forEach((extension) => {
       task['test:extension'](extension)
     })
