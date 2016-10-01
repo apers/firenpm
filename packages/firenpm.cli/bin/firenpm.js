@@ -32,10 +32,8 @@ try {
   log('yellow', `Generating directory structure for '${PACKAGE_NAME}'...`)
   lib.copyTemplates(run, EXTENSIONS, CWD)
 
-  if (['sandbox', 'test'].indexOf(NODE_ENV) === -1) {
-    log('yellow', 'Saving installed firenpm packages to package.json')
-    lib.installExtensions(run, EXTENSIONS, CWD, pckg.version)
-  }
+  log('yellow', 'Saving firenpm extensions to package.json')
+  lib.saveExtensions(EXTENSIONS, CWD, pckg)
 
   log('yellow', 'Installing missed packages from package.json')
   run('npm install', {cwd: CWD})

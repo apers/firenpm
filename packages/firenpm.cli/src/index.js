@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import path from 'path'
 import { get as emoji } from 'node-emoji'
+import jsonfile from 'jsonfile'
 
 export function printSuccessMessage (packageName, cwd) {
   console.log(chalk.green.bold('All set! You can start rolling! '), emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
@@ -39,6 +40,18 @@ export function copyTemplates (run, extensions, cwd) {
     const EXTENSION_TEMPLATE_PATH = path.resolve(cwd, `./node_modules/firenpm.${extension}/template`)
     run(`rsync -av ${EXTENSION_TEMPLATE_PATH}/ ${cwd}/`)
   })
+}
+
+export function saveExtensions (extensions, cwd, cliPckg) {
+  const packageJSONPath = path.resolve(cwd, './package.json')
+  let nextPackageJSON = jsonfile.readFileSync(packageJSONPath)
+
+  nextPackageJSON.devDependencies['firenpm'] = cliPckg.version
+  extensions.forEach((extension) => {
+    nextPackageJSON.devDependencies['firenpm.' + extension] = cliPckg.version
+  })
+
+  jsonfile.writeFileSync(packageJSONPath, nextPackageJSON)
 }
 
 export function parseArgs (args) {
