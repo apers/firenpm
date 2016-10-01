@@ -111,7 +111,8 @@ const task = {
   },
   'test': () => {
     task['lint']();
-    [null, ...EXTENSIONS].forEach((extension) => {
+    task['test:extension']()
+    EXTENSIONS.forEach((extension) => {
       task['test:extension'](extension)
     })
   },
@@ -121,31 +122,27 @@ const task = {
     }
     task['test']()
     console.log('Copy readme...')
-    run('cp ./README.md packages/firenpm/README.md')
-    run('cp ./README.md packages/firenpm.cli/README.md')
-    run('cp ./README.md packages/firenpm.web/README.md')
+    PACKAGES.forEach((pckg) => {
+      run(`cp ./README.md packages/${pckg}/README.md`)
+    })
 
     console.log('Update versions in package.json files...')
-    updateVersion('./packages/firenpm/package.json', version)
-    updateVersion('./packages/firenpm.cli/package.json', version)
-    updateVersion('./packages/firenpm.web/package.json', version)
-    run('git add ./packages/firenpm/package.json')
-    run('git add ./packages/firenpm.cli/package.json')
-    run('git add ./packages/firenpm.web/package.json')
+    PACKAGES.forEach((pckg) => {
+      updateVersion(`./packages/${pckg}/package.json`, version)
+      run(`git add ./packages/${pckg}/package.json`)
+    })
     run(`git commit -m "Update version to ${version}"`)
     run('git push')
 
     console.log('Publish packages...')
-    if (version.match(/^\d+\.\d+\.\d+$/)) {
-      run('(cd packages/firenpm && npm publish)')
-      run('(cd packages/firenpm.cli && npm publish)')
-      run('(cd packages/firenpm.web && npm publish)')
-    } else {
-      // Do not install alpha/beta versions by default
-      run('(cd packages/firenpm && npm publish --tag next)')
-      run('(cd packages/firenpm.cli && npm publish --tag next)')
-      run('(cd packages/firenpm.web && npm publish --tag next)')
-    }
+    PACKAGES.forEach((pckg) => {
+      if (version.match(/^\d+\.\d+\.\d+$/)) {
+        run(`(cd packages/${pckg} && npm publish)`)
+      } else {
+        // Do not install alpha/beta versions by default
+        run(`(cd packages/${pckg} && npm publish --tag next)`)
+      }
+    })
 
     console.log('Test production (from npm registry)...')
     task['test:production'](version)
