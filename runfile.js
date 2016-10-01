@@ -136,9 +136,16 @@ const task = {
     run('git push')
 
     console.log('Publish packages...')
-    run('(cd packages/firenpm && npm publish)')
-    run('(cd packages/firenpm.cli && npm publish)')
-    run('(cd packages/firenpm.web && npm publish)')
+    if (version.match(/^\d+\.\d+\.\d+$/)) {
+      run('(cd packages/firenpm && npm publish)')
+      run('(cd packages/firenpm.cli && npm publish)')
+      run('(cd packages/firenpm.web && npm publish)')
+    } else {
+      // Do not install alpha/beta versions by default
+      run('(cd packages/firenpm && npm publish --tag next)')
+      run('(cd packages/firenpm.cli && npm publish --tag next)')
+      run('(cd packages/firenpm.web && npm publish --tag next)')
+    }
 
     console.log('Test production (from npm registry)...')
     task['test:production'](version)
