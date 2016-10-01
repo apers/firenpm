@@ -5,7 +5,7 @@ const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 const EXTENSIONS = ['web']
 
-function isolated(callback, finall) {
+function isolated (callback, finall) {
   run('mv ./package.json ./.package.json') // eslint and babel should not read config from the directory above
   try {
     callback()
@@ -37,6 +37,21 @@ const task = {
     run('mkdir sandbox')
     extension = extension ? ` --${extension}` : ''
     run(`(cd sandbox && NODE_ENV=sandbox FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project${extension})`)
+  },
+  'lint': (path = '.') => {
+    run(`./packages/firenpm/bin/eslint.js ${path}`)
+  },
+  'lint:fix': (path = '.') => {
+    run(`./packages/firenpm/bin/eslint.js ${path} --fix`)
+  },
+  'build:cli': () => {
+    run('rm -rf ./packages/firenpm.cli/lib')
+    run('mkdir ./packages/firenpm.cli/lib')
+    run('./packages/firenpm/bin/babel.js ./packages/firenpm.cli/src --out-dir ./packages/firenpm.cli/lib')
+  },
+  'test:unit': () => {
+    task['build:cli']()
+    run('./packages/firenpm/bin/mocha.js ./packages/firenpm.cli/src/*.test.js --compilers js:./packages/firenpm/babel-register')
   },
   'test:extension': (extension) => {
     task['sandbox:clean']()

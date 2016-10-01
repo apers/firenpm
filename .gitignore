@@ -3,4 +3,5 @@ node_modules
 sandbox
 packages/firenpm/README.md
 packages/firenpm.cli/README.md
+packages/firenpm.cli/lib
 
