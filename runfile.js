@@ -1,6 +1,6 @@
 import { run } from './packages/firenpm/runjs'
 import path from 'path'
-import pckg from './packages/firenpm.cli/package.json'
+import jsonfile from './packages/firenpm.cli/node_modules/jsonfile'
 
 const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
@@ -20,6 +20,14 @@ function isolated (callback, finall) {
   } finally {
     clean()
   }
+}
+
+function updateVersion (file, version) {
+  file = path.resolve(file)
+  let json = jsonfile.readFileSync(file)
+  json.version = version
+  jsonfile.writeFileSync(file, json)
+  console.log(`Updated to version ${version} for file ${file}`)
 }
 
 const task = {
@@ -94,15 +102,35 @@ const task = {
       task['test:extension'](extension)
     })
   },
-  'publish': () => {
+  'publish': (version) => {
     task['test']()
+    console.log('Copy readme...')
     run('cp ./README.md packages/firenpm/README.md')
     run('cp ./README.md packages/firenpm.cli/README.md')
     run('cp ./README.md packages/firenpm.web/README.md')
-    run('(cd packages/firenpm && npm publish)')
-    run('(cd packages/firenpm.cli && npm publish)')
-    run('(cd packages/firenpm.web && npm publish)')
-    task['test:production'](pckg.version)
+
+    console.log('Update versions in package.json files...')
+    updateVersion('./packages/firenpm/package.json', version)
+    updateVersion('./packages/firenpm.cli/package.json', version)
+    updateVersion('./packages/firenpm.web/package.json', version)
+    run('git add ./packages/firenpm/packages.json')
+    run('git add ./packages/firenpm.cli/packages.json')
+    run('git add ./packages/firenpm.web/packages.json')
+    run(`git commit -m "Update version to ${version}"`)
+
+    console.log('Publish packages...')
+    // run('(cd packages/firenpm && npm publish)')
+    // run('(cd packages/firenpm.cli && npm publish)')
+    // run('(cd packages/firenpm.web && npm publish)')
+
+    console.log('Test production (from npm registry)...')
+    task['test:production'](version)
+
+    if (version.match(/^\d+\.\d+\.\d+$/)) {
+      console.log('Create git tag (stable version recognized)...')
+      run(`git tag -a v${version} -m "${version}"`)
+      run(`git push origin v${version}`)
+    }
   }
 }
 
