@@ -41,7 +41,7 @@ export function copyTemplates (run, extensions, cwd) {
   })
 }
 
-export function parseArgs(args) {
+export function parseArgs (args) {
   const packageName = args[2]
   const extensions = args.slice(3).map((arg) => {
     arg = arg.match(/^--(.*)$/)
