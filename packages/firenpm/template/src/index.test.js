@@ -1,8 +1,9 @@
 /* eslint-env mocha */
 import { expect } from 'firenpm/mochaccino'
+import { sayHello } from '../lib'
 
-describe('index.js', () => {
-  it('should do the test', () => {
-    expect(true).toBe(true)
+describe('sayHello', () => {
+  it('should say hello', () => {
+    expect(sayHello()).toEqual('hello')
   })
 })
