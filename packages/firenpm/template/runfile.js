@@ -11,7 +11,7 @@ const task = {
   },
   'build': () => {
     task['build:clean']()
-    run('babel src --out-dir lib')
+    run('babel src --out-dir lib --ignore test.js')
   },
   'lint': (path = '.') => {
     run(`eslint ${path}`)
