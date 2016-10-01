@@ -110,7 +110,7 @@ const task = {
     })
   },
   'test': () => {
-    task['lint']();
+    task['lint']()
     task['test:extension']()
     EXTENSIONS.forEach((extension) => {
       task['test:extension'](extension)
