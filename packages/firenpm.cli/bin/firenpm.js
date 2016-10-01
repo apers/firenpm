@@ -4,31 +4,16 @@ const run = require('runjs').run
 const path = require('path')
 const lib = require('../lib')
 const log = lib.log
+const pckg = require('../package.json')
 
 const FIRENPM_PATH = (process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH) + '/') || ''
 const NODE_ENV = process.env.NODE_ENV
 const PACKAGE_NAME = process.argv[2]
-const EXTENSION = lib.getExtension(process.argv[3])
+const EXTENSIONS = lib.getExtensions(process.argv[3])
 const CWD = path.resolve(`./${PACKAGE_NAME}`)
-const TEMPLATE_PATH = path.resolve(CWD, `./node_modules/firenpm/template`)
-const EXTENSION_TEMPLATE_PATH = EXTENSION ? path.resolve(CWD, `./node_modules/firenpm.${EXTENSION}/template`) : null
 
 if (!PACKAGE_NAME) {
   throw new Error('Package name not given!')
-}
-
-function installPackages () {
-  run(`npm install --save-dev --save-exact firenpm`, {cwd: CWD})
-  if (EXTENSION) {
-    run(`npm install --save-dev --save-exact firenpm.${EXTENSION}`, {cwd: CWD})
-  }
-}
-
-function linkPackages () {
-  run(`npm link ${FIRENPM_PATH}firenpm`, {cwd: CWD})
-  if (EXTENSION) {
-    run(`npm link ${FIRENPM_PATH}firenpm.${EXTENSION}`, {cwd: CWD})
-  }
 }
 
 try {
@@ -36,22 +21,19 @@ try {
   run(`mkdir ${PACKAGE_NAME}`)
   run('echo "{}" > package.json', {cwd: CWD})
 
-  log('yellow', 'Installing packages...')
+  log('yellow', 'Installing firenpm extensions...')
   if (['sandbox', 'test'].indexOf(NODE_ENV) !== -1) {
-    linkPackages()
+    lib.linkExtensions(run, EXTENSIONS, CWD, FIRENPM_PATH)
   } else {
-    installPackages()
+    lib.installExtensions(run, EXTENSIONS, CWD, pckg.version)
   }
 
-  log('yellow', `Creating directory structure for '${PACKAGE_NAME}'...`)
-  run(`rsync -av ${TEMPLATE_PATH}/ ${CWD}/`)
-  if (EXTENSION_TEMPLATE_PATH) {
-    run(`rsync -av ${EXTENSION_TEMPLATE_PATH}/ ${CWD}/`)
-  }
+  log('yellow', `Generating directory structure for '${PACKAGE_NAME}'...`)
+  lib.copyTemplates(run, EXTENSIONS, CWD)
 
   if (['sandbox', 'test'].indexOf(NODE_ENV) === -1) {
     log('yellow', 'Saving installed firenpm packages to package.json')
-    installPackages()
+    lib.installExtensions(run, EXTENSIONS, CWD, pckg.version)
   }
 
   log('yellow', 'Installing missed packages from package.json')

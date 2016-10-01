@@ -57,7 +57,7 @@ const task = {
     task['sandbox:clean']()
     run('mkdir sandbox')
     if (!extension) {
-      task['test:unit']();
+      task['test:unit']()
     }
     extension = extension ? ` --${extension}` : ''
     isolated(() => {
