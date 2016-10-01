@@ -45,6 +45,7 @@ const task = {
     extension = extension ? ` --${extension}` : ''
     isolated(() => {
       run(`(cd sandbox && NODE_ENV=test FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project${extension})`)
+      run('(cd sandbox/test-project && run test)')
     }, () => {
       task['sandbox:clean']()
     })
