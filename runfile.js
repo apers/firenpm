@@ -84,11 +84,11 @@ const task = {
     run('mkdir sandbox')
     isolated(() => {
       run('npm -g install firenpm.cli@' + version)
-      run('(cd sandbox && firenpm test-project)');
+      run('(cd sandbox && firenpm test-project)')
       run('(cd sandbox/test-project && run test)')
       EXTENSIONS.forEach((extension) => {
         run('rm -rf sandbox/test-project')
-        run(`(cd sandbox && firenpm test-project --${extension})`);
+        run(`(cd sandbox && firenpm test-project --${extension})`)
         run('(cd sandbox/test-project && run test)')
       })
     }, () => {
