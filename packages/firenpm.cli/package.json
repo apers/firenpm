@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Setup Babel, linting and tests for your NPM module without configuration",
   "preferGlobal": true,
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pawelgalazka/firenpm.git"

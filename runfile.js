@@ -51,7 +51,7 @@ const task = {
   },
   'test:unit': () => {
     task['build:cli']()
-    run('./packages/firenpm/bin/mocha.js ./packages/firenpm.cli/src/*.test.js --compilers js:./packages/firenpm/babel-register')
+    run('./packages/firenpm/bin/mocha.js ./packages/firenpm.cli/test/*.test.js --compilers js:./packages/firenpm/babel-register')
   },
   'test:extension': (extension) => {
     task['sandbox:clean']()
@@ -66,6 +66,7 @@ const task = {
   },
   'test': () => {
     task['lint']();
+    task['test:unit']();
     [null, ...EXTENSIONS].forEach((extension) => {
       task['test:extension'](extension)
     })

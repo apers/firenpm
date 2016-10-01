@@ -4,21 +4,12 @@ const run = require('runjs').run
 const chalk = require('chalk')
 const emoji = require('node-emoji').get
 const path = require('path')
-
-function getExtension (arg) {
-  if (!arg) {
-    return
-  }
-
-  arg = arg.match(/^--(.*)$/)
-  arg = arg ? arg[1] : null
-  return arg
-}
+const lib = require('../lib')
 
 const FIRENPM_PATH = (process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH) + '/') || ''
 const NODE_ENV = process.env.NODE_ENV
 const PACKAGE_NAME = process.argv[2]
-const EXTENSION = getExtension(process.argv[3])
+const EXTENSION = lib.getExtension(process.argv[3])
 const CWD = path.resolve(`./${PACKAGE_NAME}`)
 const TEMPLATE_PATH = path.resolve(CWD, `./node_modules/firenpm/template`)
 const EXTENSION_TEMPLATE_PATH = EXTENSION ? path.resolve(CWD, `./node_modules/firenpm.${EXTENSION}/template`) : null
