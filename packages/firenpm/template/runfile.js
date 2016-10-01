@@ -23,6 +23,10 @@ const task = {
     task['lint']()
     task['build']()
     run('mocha src/*.test.js --compilers js:firenpm/babel-register')
+  },
+  'publish': () => {
+    task['test']()
+    run('npm publish')
   }
 }
 
