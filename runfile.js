@@ -56,6 +56,9 @@ const task = {
   'test:extension': (extension) => {
     task['sandbox:clean']()
     run('mkdir sandbox')
+    if (!extension) {
+      task['test:unit']();
+    }
     extension = extension ? ` --${extension}` : ''
     isolated(() => {
       run(`(cd sandbox && NODE_ENV=test FIRENPM_PATH=${FIRENPM_PATH} ${FIRENPM_SCRIPT} test-project${extension})`)
@@ -66,7 +69,6 @@ const task = {
   },
   'test': () => {
     task['lint']();
-    task['test:unit']();
     [null, ...EXTENSIONS].forEach((extension) => {
       task['test:extension'](extension)
     })
