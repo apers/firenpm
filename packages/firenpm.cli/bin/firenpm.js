@@ -24,7 +24,7 @@ const TEMPLATE_PATH = path.resolve(CWD, `./node_modules/firenpm/template`)
 const EXTENSION_TEMPLATE_PATH = EXTENSION ? path.resolve(CWD, `./node_modules/firenpm.${EXTENSION}/template`) : null
 
 if (!PACKAGE_NAME) {
-  throw 'Package name not given!'
+  throw new Error('Package name not given!')
 }
 
 function installPackages () {
@@ -77,7 +77,7 @@ try {
 }
 
 run('clear')
-console.log(chalk.green.bold('All set! You can start rolling! '),  emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
+console.log(chalk.green.bold('All set! You can start rolling! '), emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
 console.log(`Created '${PACKAGE_NAME}' project at ${CWD}
 Now just:
 
