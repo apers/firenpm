@@ -2,16 +2,6 @@ import chalk from 'chalk'
 import path from 'path'
 import { get as emoji } from 'node-emoji'
 
-export function getExtensions (arg) {
-  if (!arg) {
-    return []
-  }
-
-  arg = arg.match(/^--(.*)$/)
-  arg = arg ? [arg[1]] : []
-  return arg
-}
-
 export function printSuccessMessage (packageName, cwd) {
   console.log(chalk.green.bold('All set! You can start rolling! '), emoji(':muscle:') + ' ' + emoji(':beer:') + ' ' + emoji(':fire:'))
   console.log(`Created '${packageName}' project at ${cwd}
@@ -49,4 +39,20 @@ export function copyTemplates (run, extensions, cwd) {
     const EXTENSION_TEMPLATE_PATH = path.resolve(cwd, `./node_modules/firenpm.${extension}/template`)
     run(`rsync -av ${EXTENSION_TEMPLATE_PATH}/ ${cwd}/`)
   })
+}
+
+export function parseArgs(args) {
+  const packageName = args[2]
+  const extensions = args.slice(3).map((arg) => {
+    arg = arg.match(/^--(.*)$/)
+    arg = arg ? arg[1] : null
+    return arg
+  }).filter(arg => arg)
+  if (!packageName) {
+    throw new Error('Package name not given!')
+  }
+  return {
+    packageName,
+    extensions
+  }
 }

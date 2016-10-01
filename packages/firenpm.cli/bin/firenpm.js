@@ -8,8 +8,9 @@ const pckg = require('../package.json')
 
 const FIRENPM_PATH = (process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH) + '/') || ''
 const NODE_ENV = process.env.NODE_ENV
-const PACKAGE_NAME = process.argv[2]
-const EXTENSIONS = lib.getExtensions(process.argv[3])
+const ARGS = lib.parseArgs(process.argv)
+const PACKAGE_NAME = ARGS.packageName
+const EXTENSIONS = ARGS.extensions
 const CWD = path.resolve(`./${PACKAGE_NAME}`)
 
 if (!PACKAGE_NAME) {
