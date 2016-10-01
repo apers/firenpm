@@ -2,23 +2,23 @@
   "private": true,
   "scripts": {
     "install": "(cd packages/firenpm && npm install) && (cd packages/firenpm.cli && npm install) && (cd packages/firenpm.web && npm install) && mkdir -p node_modules && ln -s ../packages/firenpm node_modules/firenpm",
-    "clean": "rm -rf node_modules && rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules && rm -rf packages/firenpm.web/node_modules"
+    "clean": "rm -rf packages/firenpm/node_modules && rm -rf packages/firenpm.cli/node_modules && rm -rf packages/firenpm.web/node_modules"
   },
   "babel": {
     "presets": [
-      "firenpm/babel-preset-es2015",
-      "firenpm/babel-preset-react",
-      "firenpm/babel-preset-stage-2"
+      "./packages/firenpm/babel-preset-es2015",
+      "./packages/firenpm/babel-preset-react",
+      "./packages/firenpm/babel-preset-stage-2"
     ]
   },
   "runjs": {
-    "babel-register": "./node_modules/firenpm/babel-register"
+    "babel-register": "./packages/firenpm/babel-register"
   },
   "eslintConfig": {
     "extends": [
-      "./node_modules/firenpm/eslint-config-standard.js",
-      "./node_modules/firenpm/eslint-config-standard-react.js"
+      "./packages/firenpm/eslint-config-standard.js",
+      "./packages/firenpm/eslint-config-standard-react.js"
     ],
-    "parser": "firenpm/babel-eslint"
+    "parser": "./packages/firenpm/babel-eslint"
   }
 }

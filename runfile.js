@@ -1,11 +1,10 @@
-import { run } from 'firenpm/runjs'
+import { run } from './packages/firenpm/runjs'
 import path from 'path'
 
 const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 
 function isolated(callback, finall) {
-  run('mv ./node_modules ./.node_modules') // sandbox should not read modules from the directory above
   run('mv ./package.json ./.package.json') // eslint and babel should not read config from the directory above
   try {
     callback()
@@ -13,7 +12,6 @@ function isolated(callback, finall) {
     throw e.stack
   } finally {
     run('mv ./.package.json ./package.json')
-    run('mv ./.node_modules ./node_modules')
     finall && finall()
   }
 }
