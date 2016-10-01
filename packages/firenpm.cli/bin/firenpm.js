@@ -15,7 +15,7 @@ function getExtension (arg) {
   return arg
 }
 
-const FIRENPM_PATH = (process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH)) || ''
+const FIRENPM_PATH = (process.env.FIRENPM_PATH && path.resolve(process.env.FIRENPM_PATH) + '/') || ''
 const NODE_ENV = process.env.NODE_ENV
 const PACKAGE_NAME = process.argv[2]
 const EXTENSION = getExtension(process.argv[3])

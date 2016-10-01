@@ -1,7 +1,7 @@
 import { run } from 'firenpm/runjs'
 import path from 'path'
 
-const FIRENPM_PATH = path.resolve('./packages/')
+const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
 
 function isolated(callback, finall) {
@@ -30,7 +30,7 @@ const task = {
   'sandbox:link': (pck) => {
     run(`(cd packages/${pck} && npm link)`)
   },
-  'sandbox:unlink': () => {
+  'sandbox:unlink': (pck) => {
     run(`(cd packages/${pck} && npm unlink)`)
   },
   'sandbox': (extension) => {
