@@ -1,5 +1,6 @@
 import { run } from './packages/firenpm/runjs'
 import path from 'path'
+import pckg from './packages/firenpm.cli/package.json'
 
 const FIRENPM_PATH = path.resolve('./packages')
 const FIRENPM_SCRIPT = path.resolve('./packages/firenpm.cli/bin/firenpm.js')
@@ -71,6 +72,22 @@ const task = {
       task['sandbox:clean']()
     })
   },
+  'test:production': (version) => {
+    run('mkdir sandbox')
+    isolated(() => {
+      run('npm -g install firenpm.cli@' + version)
+      run('(cd sandbox && firenpm test-project)');
+      run('(cd sandbox/test-project && run test)')
+      EXTENSIONS.forEach((extension) => {
+        run('rm -rf sandbox/test-project')
+        run(`(cd sandbox && firenpm test-project --${extension})`);
+        run('(cd sandbox/test-project && run test)')
+      })
+    }, () => {
+      run('rm -rf sandbox')
+      run('npm -g uninstall firenpm.cli')
+    })
+  },
   'test': () => {
     task['lint']();
     [null, ...EXTENSIONS].forEach((extension) => {
@@ -85,6 +102,7 @@ const task = {
     run('(cd packages/firenpm && npm publish)')
     run('(cd packages/firenpm.cli && npm publish)')
     run('(cd packages/firenpm.web && npm publish)')
+    task['test:production'](pckg.version)
   }
 }
 

@@ -21,7 +21,7 @@ export function log (color, msg) {
 export function installExtensions (run, extensions, cwd, version) {
   run(`npm install --save-dev --save-exact firenpm@${version}`, {cwd})
   extensions.forEach((extension) => {
-    run(`npm install --save-dev --save-exact firenpm.${extension}@${extension}`, {cwd})
+    run(`npm install --save-dev --save-exact firenpm.${extension}@${version}`, {cwd})
   })
 }
 
