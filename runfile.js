@@ -26,7 +26,7 @@ function updateVersion (file, version) {
   file = path.resolve(file)
   let json = jsonfile.readFileSync(file)
   json.version = version
-  jsonfile.writeFileSync(file, json)
+  jsonfile.writeFileSync(file, json, {spaces: 2})
   console.log(`Updated to version ${version} for file ${file}`)
 }
 
@@ -103,6 +103,9 @@ const task = {
     })
   },
   'publish': (version) => {
+    if (!version) {
+      throw new Error('Version not given!')
+    }
     task['test']()
     console.log('Copy readme...')
     run('cp ./README.md packages/firenpm/README.md')
@@ -113,15 +116,16 @@ const task = {
     updateVersion('./packages/firenpm/package.json', version)
     updateVersion('./packages/firenpm.cli/package.json', version)
     updateVersion('./packages/firenpm.web/package.json', version)
-    run('git add ./packages/firenpm/packages.json')
-    run('git add ./packages/firenpm.cli/packages.json')
-    run('git add ./packages/firenpm.web/packages.json')
+    run('git add ./packages/firenpm/package.json')
+    run('git add ./packages/firenpm.cli/package.json')
+    run('git add ./packages/firenpm.web/package.json')
     run(`git commit -m "Update version to ${version}"`)
+    run('git push')
 
     console.log('Publish packages...')
-    // run('(cd packages/firenpm && npm publish)')
-    // run('(cd packages/firenpm.cli && npm publish)')
-    // run('(cd packages/firenpm.web && npm publish)')
+    run('(cd packages/firenpm && npm publish)')
+    run('(cd packages/firenpm.cli && npm publish)')
+    run('(cd packages/firenpm.web && npm publish)')
 
     console.log('Test production (from npm registry)...')
     task['test:production'](version)
